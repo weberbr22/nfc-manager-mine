@@ -1,6 +1,6 @@
-import 'package:app/model/record.dart';
-import 'package:app/model/write_record.dart';
-import 'package:app/repository/repository.dart';
+import 'package:nfc_manager_mine/model/record.dart';
+import 'package:nfc_manager_mine/model/write_record.dart';
+import 'package:nfc_manager_mine/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +17,7 @@ class EditUriModel with ChangeNotifier {
   final TextEditingController uriController = TextEditingController();
 
   Future<Object> save() async {
-    if (!formKey.currentState!.validate())
-      throw('Form is invalid.');
+    if (!formKey.currentState!.validate()) throw ('Form is invalid.');
 
     final record = WellknownUriRecord(
       uri: Uri.parse(uriController.text),
@@ -32,10 +31,12 @@ class EditUriModel with ChangeNotifier {
 }
 
 class EditUriPage extends StatelessWidget {
-  static Widget withDependency([WriteRecord? record]) => ChangeNotifierProvider<EditUriModel>(
-    create: (context) => EditUriModel(Provider.of(context, listen: false), record),
-    child: EditUriPage(),
-  );
+  static Widget withDependency([WriteRecord? record]) =>
+      ChangeNotifierProvider<EditUriModel>(
+        create: (context) =>
+            EditUriModel(Provider.of(context, listen: false), record),
+        child: EditUriPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +50,26 @@ class EditUriPage extends StatelessWidget {
           padding: EdgeInsets.all(24),
           children: [
             TextFormField(
-              controller: Provider.of<EditUriModel>(context, listen: false).uriController,
-              decoration: InputDecoration(labelText: 'Uri', hintText: 'http://example.com', helperText: ''),
+              controller: Provider.of<EditUriModel>(context, listen: false)
+                  .uriController,
+              decoration: InputDecoration(
+                  labelText: 'Uri',
+                  hintText: 'http://example.com',
+                  helperText: ''),
               keyboardType: TextInputType.url,
-              validator: (value) => value?.isNotEmpty != true ? 'Required' : Uri.tryParse(value!) == null ? 'Invalid' : null,
+              validator: (value) => value?.isNotEmpty != true
+                  ? 'Required'
+                  : Uri.tryParse(value!) == null
+                      ? 'Invalid'
+                      : null,
             ),
             SizedBox(height: 12),
             ElevatedButton(
               child: Text('Save'),
-              onPressed: () => Provider.of<EditUriModel>(context, listen: false).save()
-                .then((_) => Navigator.pop(context))
-                .catchError((e) => print('=== $e ===')),
+              onPressed: () => Provider.of<EditUriModel>(context, listen: false)
+                  .save()
+                  .then((_) => Navigator.pop(context))
+                  .catchError((e) => print('=== $e ===')),
             ),
           ],
         ),

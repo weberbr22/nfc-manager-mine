@@ -1,5 +1,5 @@
-import 'package:app/model/write_record.dart';
-import 'package:app/repository/repository.dart';
+import 'package:nfc_manager_mine/model/write_record.dart';
+import 'package:nfc_manager_mine/repository/repository.dart';
 
 class RepositoryImplDemo implements Repository {
   final SubscriptionManager _subscriptionManager = SubscriptionManager();

@@ -1,5 +1,5 @@
-import 'package:app/view/common/form_row.dart';
-import 'package:app/view/common/nfc_session.dart';
+import 'package:nfc_manager_mine/view/common/form_row.dart';
+import 'package:nfc_manager_mine/view/common/nfc_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_manager/nfc_manager.dart';
@@ -10,13 +10,12 @@ class NdefFormatModel with ChangeNotifier {
   Future<String?> handleTag(NfcTag tag) async {
     final tech = NdefFormatable.from(tag);
 
-    if (tech == null)
-      throw('Tag is not ndef formatable.');
+    if (tech == null) throw ('Tag is not ndef formatable.');
 
     try {
       await tech.format(NdefMessage([]));
     } on PlatformException catch (e) {
-      throw(e.message ?? 'Some error has occurred.');
+      throw (e.message ?? 'Some error has occurred.');
     }
 
     return '[Ndef - Format] is completed.';
@@ -25,9 +24,9 @@ class NdefFormatModel with ChangeNotifier {
 
 class NdefFormatPage extends StatelessWidget {
   static Widget withDependency() => ChangeNotifierProvider<NdefFormatModel>(
-    create: (context) => NdefFormatModel(),
-    child: NdefFormatPage(),
-  );
+        create: (context) => NdefFormatModel(),
+        child: NdefFormatPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +39,13 @@ class NdefFormatPage extends StatelessWidget {
         children: [
           FormSection(children: [
             FormRow(
-              title: Text('Start Session', style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+              title: Text('Start Session',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary)),
               onTap: () => startSession(
                 context: context,
-                handleTag: Provider.of<NdefFormatModel>(context, listen: false).handleTag,
+                handleTag: Provider.of<NdefFormatModel>(context, listen: false)
+                    .handleTag,
               ),
             ),
           ]),

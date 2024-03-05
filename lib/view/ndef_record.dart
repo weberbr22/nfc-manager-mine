@@ -1,5 +1,5 @@
-import 'package:app/model/record.dart';
-import 'package:app/utility/extensions.dart';
+import 'package:nfc_manager_mine/model/record.dart';
+import 'package:nfc_manager_mine/utility/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
@@ -82,7 +82,8 @@ class _RecordColumn extends StatelessWidget {
 }
 
 class NdefRecordInfo {
-  const NdefRecordInfo({required this.record, required this.title, required this.subtitle});
+  const NdefRecordInfo(
+      {required this.record, required this.title, required this.subtitle});
 
   final Record record;
 
@@ -133,7 +134,8 @@ class NdefRecordInfo {
       return NdefRecordInfo(
         record: _record,
         title: _typeNameFormatToString(_record.record.typeNameFormat),
-        subtitle: '(${_record.record.type.toHexString()}) ${_record.record.payload.toHexString()}',
+        subtitle:
+            '(${_record.record.type.toHexString()}) ${_record.record.payload.toHexString()}',
       );
     }
     throw UnimplementedError();

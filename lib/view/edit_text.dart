@@ -1,6 +1,6 @@
-import 'package:app/model/record.dart';
-import 'package:app/model/write_record.dart';
-import 'package:app/repository/repository.dart';
+import 'package:nfc_manager_mine/model/record.dart';
+import 'package:nfc_manager_mine/model/write_record.dart';
+import 'package:nfc_manager_mine/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +17,7 @@ class EditTextModel with ChangeNotifier {
   final TextEditingController textController = TextEditingController();
 
   Future<Object> save() async {
-    if (!formKey.currentState!.validate())
-      throw('Form is invalid.');
+    if (!formKey.currentState!.validate()) throw ('Form is invalid.');
 
     final record = WellknownTextRecord(
       languageCode: 'en', // todo:
@@ -33,10 +32,12 @@ class EditTextModel with ChangeNotifier {
 }
 
 class EditTextPage extends StatelessWidget {
-  static Widget withDependency([WriteRecord? record]) => ChangeNotifierProvider<EditTextModel>(
-    create: (context) => EditTextModel(Provider.of(context, listen: false), record),
-    child: EditTextPage(),
-  );
+  static Widget withDependency([WriteRecord? record]) =>
+      ChangeNotifierProvider<EditTextModel>(
+        create: (context) =>
+            EditTextModel(Provider.of(context, listen: false), record),
+        child: EditTextPage(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -50,17 +51,21 @@ class EditTextPage extends StatelessWidget {
           padding: EdgeInsets.all(24),
           children: [
             TextFormField(
-              controller: Provider.of<EditTextModel>(context, listen: false).textController,
+              controller: Provider.of<EditTextModel>(context, listen: false)
+                  .textController,
               decoration: InputDecoration(labelText: 'Text', helperText: ''),
               keyboardType: TextInputType.text,
-              validator: (value) => value?.isNotEmpty != true ? 'Required' : null,
+              validator: (value) =>
+                  value?.isNotEmpty != true ? 'Required' : null,
             ),
             SizedBox(height: 12),
             ElevatedButton(
               child: Text('Save'),
-              onPressed: () => Provider.of<EditTextModel>(context, listen: false).save()
-                .then((_) => Navigator.pop(context))
-                .catchError((e) => print('=== $e ===')),
+              onPressed: () =>
+                  Provider.of<EditTextModel>(context, listen: false)
+                      .save()
+                      .then((_) => Navigator.pop(context))
+                      .catchError((e) => print('=== $e ===')),
             ),
           ],
         ),

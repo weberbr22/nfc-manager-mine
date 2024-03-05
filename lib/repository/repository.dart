@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import 'package:app/model/write_record.dart';
-import 'package:app/repository/database.dart';
-import 'package:app/repository/repository_impl.dart';
-import 'package:app/repository/repository_impl_demo.dart';
+import 'package:nfc_manager_mine/model/write_record.dart';
+import 'package:nfc_manager_mine/repository/database.dart';
+import 'package:nfc_manager_mine/repository/repository_impl.dart';
+import 'package:nfc_manager_mine/repository/repository_impl_demo.dart';
 
 abstract class Repository {
-  static Future<Repository> createInstance({bool isDemo = false}) async => isDemo
-    ? RepositoryImplDemo()
-    : RepositoryImpl(await getOrCreateDatabase());
+  static Future<Repository> createInstance({bool isDemo = false}) async =>
+      isDemo
+          ? RepositoryImplDemo()
+          : RepositoryImpl(await getOrCreateDatabase());
 
   Stream<Iterable<WriteRecord>> subscribeWriteRecordList();
 
@@ -27,15 +28,13 @@ class SubscriptionManager {
       _controllers.remove(key)?.close();
       _subscribers.remove(key)?.close();
     });
-    void publisher(Future<T> future) => future
-      .then(controller.add)
-      .catchError(controller.addError);
+    void publisher(Future<T> future) =>
+        future.then(controller.add).catchError(controller.addError);
     _subscribers[key] = StreamController(onListen: () => publisher(fetcher()))
       ..stream.listen((_) => publisher(fetcher()));
     _controllers[key] = controller;
     return controller.stream;
   }
 
-  void publish() =>
-    _subscribers.values.forEach((e) => e.add(null));
+  void publish() => _subscribers.values.forEach((e) => e.add(null));
 }

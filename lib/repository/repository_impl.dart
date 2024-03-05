@@ -1,5 +1,5 @@
-import 'package:app/model/write_record.dart';
-import 'package:app/repository/repository.dart';
+import 'package:nfc_manager_mine/model/write_record.dart';
+import 'package:nfc_manager_mine/repository/repository.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RepositoryImpl implements Repository {
@@ -12,16 +12,19 @@ class RepositoryImpl implements Repository {
   @override
   Stream<Iterable<WriteRecord>> subscribeWriteRecordList() {
     return _subscriptionManager.createStream(() async {
-      return _db.query('record')
-        .then((value) => value.map((e) => WriteRecord.fromJson(e)));
+      return _db
+          .query('record')
+          .then((value) => value.map((e) => WriteRecord.fromJson(e)));
     });
   }
 
   @override
   Future<WriteRecord> createOrUpdateWriteRecord(WriteRecord record) async {
-    final id = await _db.insert('record', record.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
+    final id = await _db.insert('record', record.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
     _subscriptionManager.publish();
-    return WriteRecord.fromJson(record.toJson()..[WriteRecord.ID] = id); // todo: copyWith
+    return WriteRecord.fromJson(
+        record.toJson()..[WriteRecord.ID] = id); // todo: copyWith
   }
 
   @override

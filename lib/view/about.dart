@@ -1,4 +1,4 @@
-import 'package:app/view/common/form_row.dart';
+import 'package:nfc_manager_mine/view/common/form_row.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,7 +34,8 @@ class AboutPage extends StatelessWidget {
             FormRow(
               title: Text('Privacy Policy'),
               trailing: Icon(Icons.open_in_new),
-              onTap: () => launch('https://nfcmanager.naokiokada.com/privacy-policy/'),
+              onTap: () =>
+                  launch('https://nfcmanager.naokiokada.com/privacy-policy/'),
             ),
           ]),
         ],

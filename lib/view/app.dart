@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:app/repository/repository.dart';
-import 'package:app/view/about.dart';
-import 'package:app/view/common/form_row.dart';
-import 'package:app/view/ndef_format.dart';
-import 'package:app/view/ndef_write.dart';
-import 'package:app/view/ndef_write_lock.dart';
-import 'package:app/view/tag_read.dart';
+import 'package:nfc_manager_mine/repository/repository.dart';
+import 'package:nfc_manager_mine/view/about.dart';
+import 'package:nfc_manager_mine/view/common/form_row.dart';
+import 'package:nfc_manager_mine/view/ndef_format.dart';
+import 'package:nfc_manager_mine/view/ndef_write.dart';
+import 'package:nfc_manager_mine/view/ndef_write_lock.dart';
+import 'package:nfc_manager_mine/view/tag_read.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
